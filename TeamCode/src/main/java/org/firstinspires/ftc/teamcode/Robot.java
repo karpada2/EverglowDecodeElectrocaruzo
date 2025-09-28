@@ -1,8 +1,14 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.acmerobotics.roadrunner.Pose2d;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+
 import org.firstinspires.ftc.teamcode.everglow_library.RobotBase;
 
 public class Robot extends RobotBase {
+    public Robot(HardwareMap hardwareMap) {
+        this.drive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
+    }
     @Override
     public void update(int iterationCount) {
 

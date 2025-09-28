@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
+import com.acmerobotics.roadrunner.SequentialAction;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -57,6 +58,22 @@ public class Intake implements Subsystem {
 
     public boolean isIntaking() {
         return intakeMotor.getPower() == INTAKE_POWER;
+    }
+
+
+    public IntakeAction getStartIntakeAction() {
+        return new IntakeAction(true, 0);
+    }
+
+    public IntakeAction getStopIntakeAction() {
+        return new IntakeAction(false, 0);
+    }
+
+    public Action getIntakeActionForAmountOfTime(double timeAmountMillis) {
+        return new SequentialAction(
+                new IntakeAction(true, timeAmountMillis),
+                new IntakeAction(false, 0)
+        );
     }
 
     @Override
